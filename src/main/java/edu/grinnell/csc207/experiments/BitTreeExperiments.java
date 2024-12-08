@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 /**
  * Some experiments with Bit Trees.
  *
- * @author Your Name Here
+ * @author Slok
  * @author Samuel A. Rebelsky
  */
 public class BitTreeExperiments {

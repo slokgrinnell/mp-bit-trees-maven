@@ -19,7 +19,7 @@ public class BrailleAsciiTables {
   /**
    * Conversions from ASCII to braille.
    */
-  static final String a2b = 
+  static final String a2b =
       "01000001,100000\n"
       + "01000010,110000\n"
       + "01000011,100100\n"
@@ -215,12 +215,12 @@ public class BrailleAsciiTables {
         stream.close();
       } catch (IOException e) {
         // Ignore closing errors
-      }
-    }
+      } // end of try/catch
+    } // end of if loop
     String bits = Integer.toBinaryString(letter);
     while (bits.length() < 8) {
       bits = "0" + bits; // Ensure 8-bit encoding
-    }
+    } // end of while
     return a2bTree.get(bits);
   } // toBraille(char)
 
@@ -241,13 +241,13 @@ public class BrailleAsciiTables {
         stream.close();
       } catch (IOException e) {
         // Ignore closing errors
-      }
-    }
-    
+      } // end of try/catch
+    } // end of if loop
+
     // Validating String output
     if (bits.length() % 6 != 0) {
       throw new IndexOutOfBoundsException("Incorrect number of bits passed");
-    }
+    } // end of if loop
 
     String result = "";
     String currentLetter;
@@ -256,7 +256,7 @@ public class BrailleAsciiTables {
       currentLetter = bits.substring(i, i + letterBitLength);
       result += b2aTree.get(currentLetter);
 
-    }
+    } // end of for loop
 
     return result;
   } // toAscii(String)
@@ -278,10 +278,10 @@ public class BrailleAsciiTables {
         stream.close();
       } catch (IOException e) {
         // Ignore closing errors
-      }
-    }
+      } // end of try/catch
+    } // end of if loop
     String unicodeHex = b2uTree.get(bits);
     int unicodeValue = Integer.parseInt(unicodeHex, 16);
-    return String.valueOf((char) unicodeValue); 
+    return String.valueOf((char) unicodeValue);
   } // toUnicode(String)
 } // class BrailleAsciiTables

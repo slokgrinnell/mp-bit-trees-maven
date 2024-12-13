@@ -29,7 +29,7 @@ public class BitTreeLeaf implements BitTreeNode {
   @Override
   public String getValue() {
     return value;
-  }
+  } // getValue()
 
   /**
    * Set the value at this node.
@@ -40,7 +40,7 @@ public class BitTreeLeaf implements BitTreeNode {
   @Override
   public void setValue(String value) {
     this.value = value;
-  }
+  } // setValue()
 
   /**
    * Retrieve the left child of this node.
@@ -51,7 +51,7 @@ public class BitTreeLeaf implements BitTreeNode {
   @Override
   public BitTreeNode getLeft() {
     return null; // Leaves do not have children.
-  }
+  } // getLeft()
 
   /**
    * Set the left child of this node. This operation is unsupported
@@ -65,7 +65,7 @@ public class BitTreeLeaf implements BitTreeNode {
   @Override
   public void setLeft(BitTreeNode left) {
     throw new UnsupportedOperationException("Leaves cannot have children.");
-  }
+  } // setLeft()
 
   /**
    * Retrieve the right child of this node.
@@ -76,7 +76,7 @@ public class BitTreeLeaf implements BitTreeNode {
   @Override
   public BitTreeNode getRight() {
     return null; // Leaves do not have children.
-  }
+  } // getRight()
 
   /**
    * Set the right child of this node. This operation is unsupported
@@ -90,5 +90,5 @@ public class BitTreeLeaf implements BitTreeNode {
   @Override
   public void setRight(BitTreeNode right) {
     throw new UnsupportedOperationException("Leaves cannot have children.");
-  }
+  } // setRight()
 } // class BitTreeLeaf

@@ -34,7 +34,7 @@ public class BitTreeInteriorNode implements BitTreeNode {
   @Override
   public String getValue() {
     return null; // Interior nodes do not have values.
-  }
+  } // getValue()
 
   /**
    * Set the value at this node. This operation is unsupported for
@@ -48,7 +48,7 @@ public class BitTreeInteriorNode implements BitTreeNode {
   @Override
   public void setValue(String value) {
     throw new UnsupportedOperationException("Interior nodes cannot store values.");
-  }
+  } // setValue()
 
   /**
    * Retrieve the left child of this node.
@@ -59,7 +59,7 @@ public class BitTreeInteriorNode implements BitTreeNode {
   @Override
   public BitTreeNode getLeft() {
     return left;
-  }
+  } // getLeft()
 
   /**
    * Set the left child of this node.
@@ -70,7 +70,7 @@ public class BitTreeInteriorNode implements BitTreeNode {
   @Override
   public void setLeft(BitTreeNode left) {
     this.left = left;
-  }
+  } // setLeft()
 
   /**
    * Retrieve the right child of this node.
@@ -81,7 +81,7 @@ public class BitTreeInteriorNode implements BitTreeNode {
   @Override
   public BitTreeNode getRight() {
     return right;
-  }
+  } // getRight()
 
   /**
    * Set the right child of this node.
@@ -92,5 +92,5 @@ public class BitTreeInteriorNode implements BitTreeNode {
   @Override
   public void setRight(BitTreeNode right) {
     this.right = right;
-  }
+  } // setRight(BitTreeNode)
 } // class BitTreeInteriorNode

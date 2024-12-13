@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
- * Trees intended to be used in storing mappings between fixed-length 
+ * Trees intended to be used in storing mappings between fixed-length
  * sequences of bits and corresponding values.
  *
  * @author Slok
@@ -56,10 +56,10 @@ public class BitTree {
    */
   private boolean isValidBits(String bits) {
     return bits.length() == depth;
-  }
+  } // isValidBits()
 
   /**
-   * Create a path in the tree for the given bit sequence, adding 
+   * Create a path in the tree for the given bit sequence, adding
    * nodes as necessary.
    *
    * @param bits
@@ -72,24 +72,25 @@ public class BitTree {
     if (root == null) {
       root = new BitTreeInteriorNode();
       current = root;
-    }
+    } // end of if loop
     char c;
     for (int i = 0; i < bits.length(); i++) {
       c = bits.toCharArray()[i];
       if (c == '0') {
         if (current.getLeft() == null) {
           current.setLeft((i == bits.length() - 1) ? new BitTreeLeaf() : new BitTreeInteriorNode());
-        }
+        } // end of if loop
         current = current.getLeft();
       } else if (c == '1') {
         if (current.getRight() == null) {
-          current.setRight((i == bits.length() - 1) ? new BitTreeLeaf() : new BitTreeInteriorNode());
-        }
+          current.setRight((i == bits.length() - 1) ? new BitTreeLeaf()
+              : new BitTreeInteriorNode());
+        } // end of if loop
         current = current.getRight();
-      }
-    }
+      } // end of if loop
+    } // end of for loop
     return current;
-  }
+  } // end of for loop
 
   // +---------+-----------------------------------------------------
   // | Methods |
@@ -108,7 +109,7 @@ public class BitTree {
   public void set(String bits, String value) {
     if (!isValidBits(bits)) {
       throw new IndexOutOfBoundsException("Invalid bit sequence");
-    }
+    } // end of if loop
     BitTreeNode node = createPath(bits);
     node.setValue(value);
   } // set(String, String)
@@ -126,17 +127,17 @@ public class BitTree {
   public String get(String bits) {
     if (!isValidBits(bits)) {
       throw new IndexOutOfBoundsException("Invalid bit sequence");
-    }
+    } // end of if loop
     BitTreeNode current = root;
     for (char c : bits.toCharArray()) {
       if (current == null) {
         throw new IndexOutOfBoundsException("Path does not exist");
-      }
+      } // end of if loop
       current = (c == '0') ? current.getLeft() : current.getRight();
-    }
+    } // end of for loop
     if (current == null || current.getValue() == null) {
       throw new IndexOutOfBoundsException("No value found at path");
-    }
+    } // end of if loop
     return current.getValue();
   } // get(String)
 
@@ -163,13 +164,13 @@ public class BitTree {
   private void dumpHelper(PrintWriter pen, BitTreeNode node, String prefix) {
     if (node == null) {
       return;
-    }
+    } // end of if loop
     if (node.getValue() != null) {
       pen.println(prefix + "," + node.getValue());
-    }
+    } // end of if loop
     dumpHelper(pen, node.getLeft(), prefix + "0");
     dumpHelper(pen, node.getRight(), prefix + "1");
-  }
+  } // dumpHelper(Printwrite, BitTreeNode, String)
 
   /**
    * Load mappings from an input stream into the tree.
@@ -183,8 +184,8 @@ public class BitTree {
       String[] parts = scanner.nextLine().split(",", 2);
       if (parts.length == 2) {
         set(parts[0], parts[1]);
-      }
-    }
+      } // end of if loop
+    } // end of while loop
     scanner.close();
   } // load(InputStream)
 

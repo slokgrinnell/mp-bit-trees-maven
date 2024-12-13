@@ -53,8 +53,14 @@ public class BrailleASCII {
           break;
 
         case "unicode":
-          // Convert the Braille bit string to Unicode
-          pen.println(BrailleAsciiTables.toUnicode(source));
+          String brailleBits;
+          for (char c : source.toCharArray()) {
+            brailleBits = BrailleAsciiTables.toBraille(c);
+            
+            // Convert the Braille bit string to Unicode
+            pen.print(BrailleAsciiTables.toUnicode(brailleBits));
+          }
+          pen.println();
           break;
 
         default:

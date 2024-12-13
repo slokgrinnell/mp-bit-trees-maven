@@ -17,7 +17,7 @@ public class BrailleAsciiTables {
   // +-----------+
 
   /**
-   * Conversions from ASCII to Braille bit strings.
+   * Conversions from ASCII to braille.
    */
   static final String a2b = 
       "01000001,100000\n"
@@ -45,10 +45,37 @@ public class BrailleAsciiTables {
       + "01010111,010111\n"
       + "01011000,101101\n"
       + "01011001,101111\n"
-      + "01011010,101011\n";
+      + "01011010,101011\n"
+      + "01100001,100000\n"
+      + "01100010,110000\n"
+      + "01100011,100100\n"
+      + "01100100,100110\n"
+      + "01100101,100010\n"
+      + "01100110,110100\n"
+      + "01100111,110110\n"
+      + "01101000,110010\n"
+      + "01101001,010100\n"
+      + "01101010,010110\n"
+      + "01101011,101000\n"
+      + "01101100,111000\n"
+      + "01101101,101100\n"
+      + "01101110,101110\n"
+      + "01101111,101010\n"
+      + "01110000,111100\n"
+      + "01110001,111110\n"
+      + "01110010,111010\n"
+      + "01110011,011100\n"
+      + "01110100,011110\n"
+      + "01110101,101001\n"
+      + "01110110,111001\n"
+      + "01110111,010111\n"
+      + "01111000,101101\n"
+      + "01111001,101111\n"
+      + "01111010,101011\n"
+      + "00100000,000000\n";
 
   /**
-   * Conversions from Braille bit strings to ASCII characters.
+   * Conversions from braille to ASCII.
    */
   static final String b2a =
       "100000,A\n"
@@ -75,22 +102,78 @@ public class BrailleAsciiTables {
       + "111001,V\n"
       + "101101,X\n"
       + "101111,Y\n"
-      + "101011,Z\n";
+      + "101011,Z\n"
+      + "010111,W\n"
+      + "000000, \n";
 
   /**
-   * Conversions from Braille bit strings to Unicode characters.
+   * Conversions from braille to unicode.
    */
   static final String b2u =
-      "100000,2801\n"
+      "000000,2800\n"
+      + "100000,2801\n"
+      + "010000,2802\n"
       + "110000,2803\n"
+      + "001000,2804\n"
+      + "101000,2805\n"
+      + "011000,2806\n"
+      + "111000,2807\n"
+      + "000100,2808\n"
       + "100100,2809\n"
-      + "100110,2819\n"
-      + "100010,2811\n"
-      + "110100,280B\n"
-      + "110110,281B\n"
-      + "110010,2813\n"
       + "010100,280A\n"
-      + "010110,281A\n";
+      + "110100,280B\n"
+      + "001100,280C\n"
+      + "101100,280D\n"
+      + "011100,280E\n"
+      + "111100,280F\n"
+      + "000010,2810\n"
+      + "100010,2811\n"
+      + "010010,2812\n"
+      + "110010,2813\n"
+      + "001010,2814\n"
+      + "101010,2815\n"
+      + "011010,2816\n"
+      + "111010,2817\n"
+      + "000110,2818\n"
+      + "100110,2819\n"
+      + "010110,281A\n"
+      + "110110,281B\n"
+      + "001110,281C\n"
+      + "101110,281D\n"
+      + "011110,281E\n"
+      + "111110,281F\n"
+      + "000001,2820\n"
+      + "100001,2821\n"
+      + "010001,2822\n"
+      + "110001,2823\n"
+      + "001001,2824\n"
+      + "101001,2825\n"
+      + "011001,2826\n"
+      + "111001,2827\n"
+      + "000101,2828\n"
+      + "100101,2829\n"
+      + "010101,282A\n"
+      + "110101,282B\n"
+      + "001101,282C\n"
+      + "101101,282D\n"
+      + "011101,282E\n"
+      + "111101,282F\n"
+      + "000011,2830\n"
+      + "100011,2831\n"
+      + "010011,2832\n"
+      + "110011,2833\n"
+      + "001011,2834\n"
+      + "101011,2835\n"
+      + "011011,2836\n"
+      + "111011,2837\n"
+      + "000111,2838\n"
+      + "100111,2839\n"
+      + "010111,283A\n"
+      + "110111,283B\n"
+      + "001111,283C\n"
+      + "101111,283D\n"
+      + "011111,283E\n"
+      + "111111,283F\n";
 
   // +---------------+-----------------------------------------------
   // | Static fields |
@@ -149,7 +232,7 @@ public class BrailleAsciiTables {
    * @return
    *   The ASCII character corresponding to the Braille bit string.
    */
-  public static String toAscii(String bits) {
+  public static String toAscii(String bits) throws IndexOutOfBoundsException {
     if (b2aTree == null) {
       b2aTree = new BitTree(6);
       InputStream stream = new ByteArrayInputStream(b2a.getBytes());
@@ -160,7 +243,22 @@ public class BrailleAsciiTables {
         // Ignore closing errors
       }
     }
-    return b2aTree.get(bits);
+    
+    // Validating String output
+    if (bits.length() % 6 != 0) {
+      throw new IndexOutOfBoundsException("Incorrect number of bits passed");
+    }
+
+    String result = "";
+    String currentLetter;
+    int letterBitLength = 6;
+    for (int i = 0; i < bits.length(); i += letterBitLength) {
+      currentLetter = bits.substring(i, i + letterBitLength);
+      result += b2aTree.get(currentLetter);
+
+    }
+
+    return result;
   } // toAscii(String)
 
   /**
@@ -184,6 +282,6 @@ public class BrailleAsciiTables {
     }
     String unicodeHex = b2uTree.get(bits);
     int unicodeValue = Integer.parseInt(unicodeHex, 16);
-    return String.valueOf((char) unicodeValue);
+    return String.valueOf((char) unicodeValue); 
   } // toUnicode(String)
 } // class BrailleAsciiTables

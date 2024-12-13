@@ -55,7 +55,7 @@ public class BitTree {
    *   True if valid; false otherwise.
    */
   private boolean isValidBits(String bits) {
-    return bits.length() == depth && bits.matches("[01]+");
+    return bits.length() == depth;
   }
 
   /**
@@ -73,15 +73,17 @@ public class BitTree {
       root = new BitTreeInteriorNode();
       current = root;
     }
-    for (char c : bits.toCharArray()) {
+    char c;
+    for (int i = 0; i < bits.length(); i++) {
+      c = bits.toCharArray()[i];
       if (c == '0') {
         if (current.getLeft() == null) {
-          current.setLeft(new BitTreeInteriorNode());
+          current.setLeft((i == bits.length() - 1) ? new BitTreeLeaf() : new BitTreeInteriorNode());
         }
         current = current.getLeft();
       } else if (c == '1') {
         if (current.getRight() == null) {
-          current.setRight(new BitTreeInteriorNode());
+          current.setRight((i == bits.length() - 1) ? new BitTreeLeaf() : new BitTreeInteriorNode());
         }
         current = current.getRight();
       }
